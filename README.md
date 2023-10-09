@@ -1,2 +1,3 @@
-# article-summarizer
-React.js application to render articles summarized by AI
+# Article Summarizer by OpenAI
+
+React.js application to render articles summarized by AI.

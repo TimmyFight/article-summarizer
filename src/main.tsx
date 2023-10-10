@@ -1,15 +1,23 @@
 import { createRoot } from "react-dom/client";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import "./mainStyles.css";
 
-import Radar from "./Pages/Summarizer/Summarizer";
+import Summarizer from "./Pages/Summarizer/Summarizer";
 
 export default function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route index element={<Radar />} />
-      </Routes>
-    </BrowserRouter>
+    <main>
+      <div className="main">
+        <div className="gradient" />
+      </div>
+      <div className="app">
+        <BrowserRouter>
+          <Routes>
+            <Route index element={<Summarizer />} />
+          </Routes>
+        </BrowserRouter>
+      </div>
+    </main>
   );
 }
 

@@ -1,9 +1,19 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import App from "./App.tsx";
+import { createRoot } from "react-dom/client";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
-ReactDOM.createRoot(document.getElementById("root")!).render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
+import Radar from "./Pages/Summarizer/Summarizer";
+
+export default function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route index element={<Radar />} />
+      </Routes>
+    </BrowserRouter>
+  );
+}
+
+const domNode = document.getElementById("root");
+const root = createRoot(domNode as HTMLElement);
+
+root.render(<App />);

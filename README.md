@@ -2,7 +2,7 @@
 
 React.js application to render articles summarized by AI.
 
-## Used Staff
+## Used Stuff
  - React.js
  - TypeScript
  - Vitest

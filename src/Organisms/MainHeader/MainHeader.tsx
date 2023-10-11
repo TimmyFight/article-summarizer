@@ -10,8 +10,15 @@ const MainHeader = () => {
       <Headings>
         <>
           Summerize Articles with
-          <br />
-          <span className="orange_gradient">OpenAI GPT-4</span>
+          <br className="max-md:hidden" />
+          <span className="orange_gradient"> OpenAI GPT-4</span>
+        </>
+      </Headings>
+      <Headings level={2} customClass="desc">
+        <>
+          Create summaries of long articles and read them faster.
+          <br className="max-md:hidden" />
+          This tool turns long articles into clear and concise summaries.
         </>
       </Headings>
     </header>

@@ -1,3 +1,6 @@
+import MainHeader from "../../Organisms/MainHeader/MainHeader";
+import SummarizerBody from "../../Organisms/SummarizerBody/SummarizerBody";
+
 interface SummarizerProps {
   article?: string;
 }
@@ -5,12 +8,17 @@ interface SummarizerProps {
 const SummarizerTemplate = ({ article }: SummarizerProps) => {
   if (article === "Empty") {
     return (
-      <div data-testid="summarizerContainer">
+      <section data-testid="summarizerContainer">
         Article was not found. Try to search by URL.
-      </div>
+      </section>
     );
   }
-  return <div data-testid="summarizerContainer">{article}</div>;
+  return (
+    <section data-testid="summarizerContainer">
+      <MainHeader />
+      <SummarizerBody />
+    </section>
+  );
 };
 
 SummarizerTemplate.defaultProps = {

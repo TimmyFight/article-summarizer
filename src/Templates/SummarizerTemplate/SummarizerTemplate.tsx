@@ -14,7 +14,9 @@ const SummarizerTemplate = ({ article }: SummarizerProps) => {
     );
   }
   return (
-    <section data-testid="summarizerContainer">
+    <section
+      data-testid="summarizerContainer"
+      className="flex flex-col justify-center items-center">
       <MainHeader />
       <SummarizerBody />
     </section>

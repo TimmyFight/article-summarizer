@@ -9,7 +9,7 @@ const MainHeader = () => {
       <Navigation />
       <Headings>
         <>
-          Summerize Articles with
+          Summarize Articles with
           <br className="max-md:hidden" />
           <span className="orange_gradient"> OpenAI GPT-4</span>
         </>

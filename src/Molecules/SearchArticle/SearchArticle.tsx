@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, FormEvent } from "react";
+import { useLazyGetSummaryByUrlQuery } from "../../services/article";
 
 import { linkIcon } from "../../assets";
 
@@ -8,8 +9,18 @@ const SearchArticle = () => {
     summary: "",
   });
 
-  const handleSubmit = async (event: unknown) => {
-    alert(`Submited ${event}`);
+  const [getSummaryByUrl, { error, isFetching }] =
+    useLazyGetSummaryByUrlQuery();
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const { data } = await getSummaryByUrl({ articleUrl: article.url });
+
+    if (data?.summary) {
+      const newArticle = { ...article, summary: data.summary };
+
+      setArticle(newArticle);
+    }
   };
 
   return (

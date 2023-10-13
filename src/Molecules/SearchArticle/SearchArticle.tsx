@@ -9,6 +9,15 @@ const SearchArticle = () => {
     summary: "",
   });
 
+  const [lastArticles, setLastArticles] = useState<[] | string[]>([]);
+
+  useEffect(() => {
+    const lastArticlesStoraged = localStorage.getItem("lastArticles");
+    if (lastArticlesStoraged) {
+      setLastArticles(JSON.parse(lastArticlesStoraged));
+    }
+  }, []);
+
   const [getSummaryByUrl, { error, isFetching }] =
     useLazyGetSummaryByUrlQuery();
 
@@ -18,8 +27,15 @@ const SearchArticle = () => {
 
     if (data?.summary) {
       const newArticle = { ...article, summary: data.summary };
+      const updatedLastArticles = [newArticle.url, ...lastArticles];
+
+      if (updatedLastArticles.length > 5) {
+        updatedLastArticles.pop();
+      }
 
       setArticle(newArticle);
+      setLastArticles(updatedLastArticles);
+      localStorage.setItem("lastArticles", JSON.stringify(updatedLastArticles));
     }
   };
 

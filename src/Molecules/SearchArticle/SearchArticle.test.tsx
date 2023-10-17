@@ -40,15 +40,28 @@ describe("SearchArticle has been rendered", () => {
     expect(urlInput).toBe("url");
     expect(submitButton).toBe("submit");
   });
+
   it("Submit form has been fired", async () => {
-    const { getByPlaceholderText, getByText } = render(<SearchArticle />);
+    const { getByPlaceholderText, getByText } = render(
+      <Provider store={store}>
+        <SearchArticle />
+      </Provider>
+    );
     fireEvent.change(getByPlaceholderText("Eneter article URL"), {
-      target: { value: "https://test.com" },
+      target: { value: "https://wheaterapp-adi.netlify.app/" },
     });
     fireEvent.click(getByText("&#10148;"));
 
     await expect(getSummaryByUrl).toHaveBeenCalledWith({
-      articleUrl: "https://test.com",
+      articleUrl: "https://wheaterapp-adi.netlify.app/",
     });
+  });
+
+  it("Displays the summary after form submission", async () => {
+    await expect(getSummaryByUrl).toHaveBeenCalledWith({
+      articleUrl: "https://wheaterapp-adi.netlify.app/",
+    });
+
+    expect(screen.getByText("Test summary")).toBeTruthy();
   });
 });

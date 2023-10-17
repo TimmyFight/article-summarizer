@@ -18,6 +18,8 @@ export const articleApi = createApi({
     prepareHeaders: (headers) => {
       headers.set("X-RapidAPI-Key", rapidApiKey);
       headers.set("X-RapidAPI-Host", rapidApiHost);
+
+      return headers;
     },
   }),
   endpoints: (builder) => ({

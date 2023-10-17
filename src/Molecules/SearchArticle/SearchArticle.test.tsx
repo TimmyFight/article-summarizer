@@ -42,7 +42,7 @@ describe("SearchArticle has been rendered", () => {
   });
 
   it("Submit form has been fired", async () => {
-    const { getByPlaceholderText, getByText } = render(
+    const { getByPlaceholderText } = render(
       <Provider store={store}>
         <SearchArticle />
       </Provider>
@@ -50,7 +50,7 @@ describe("SearchArticle has been rendered", () => {
     fireEvent.change(getByPlaceholderText("Eneter article URL"), {
       target: { value: "https://wheaterapp-adi.netlify.app/" },
     });
-    fireEvent.click(getByText("&#10148;"));
+    fireEvent.click(screen.getByTestId("submitSearch"));
 
     await expect(getSummaryByUrl).toHaveBeenCalledWith({
       articleUrl: "https://wheaterapp-adi.netlify.app/",
@@ -58,6 +58,16 @@ describe("SearchArticle has been rendered", () => {
   });
 
   it("Displays the summary after form submission", async () => {
+    const { getByPlaceholderText } = render(
+      <Provider store={store}>
+        <SearchArticle />
+      </Provider>
+    );
+    fireEvent.change(getByPlaceholderText("Eneter article URL"), {
+      target: { value: "https://wheaterapp-adi.netlify.app/" },
+    });
+    fireEvent.click(screen.getByTestId("submitSearch"));
+
     await expect(getSummaryByUrl).toHaveBeenCalledWith({
       articleUrl: "https://wheaterapp-adi.netlify.app/",
     });

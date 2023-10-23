@@ -2,6 +2,9 @@ import { useState, useEffect, FormEvent } from "react";
 import { useLazyGetSummaryByUrlQuery } from "../../services/article";
 
 import { linkIcon } from "../../assets";
+import ArticleSummary from "../../Atoms/ArticleSummary/ArticleSummary";
+import Loading from "../../Atoms/Loading/Loading";
+import Error from "../../Atoms/Error/Error";
 
 const SearchArticle = () => {
   const [article, setArticle] = useState({
@@ -69,7 +72,9 @@ const SearchArticle = () => {
           &#10148;
         </button>
       </form>
-      <div data-testId="articleSummary">Test summary</div>
+      {isFetching && <Loading />}
+      {error && <Error />}
+      {!isFetching && !error && <ArticleSummary summary={article.summary} />}
     </div>
   );
 };

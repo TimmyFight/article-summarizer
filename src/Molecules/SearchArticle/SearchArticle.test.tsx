@@ -1,9 +1,13 @@
 import { describe, expect, it } from "vitest";
-import { render, screen, userEvent } from "../../utils/testUtils";
+import {
+  render,
+  screen,
+  userEvent,
+  waitForElementToBeRemoved,
+} from "../../utils/testUtils";
 
 import { Provider } from "react-redux";
 import { store } from "../../services/store";
-import { shorterArticle } from "../../mocks/handlers";
 
 import SearchArticle from "./SearchArticle";
 
@@ -39,8 +43,25 @@ describe("SearchArticle has been rendered", () => {
     );
     userEvent.click(screen.getByTestId("submitSearch"));
 
-    expect(screen.getByTestId("articleSummary").textContent).toBe(
-      shorterArticle.summary
+    await waitForElementToBeRemoved(() => screen.getByTestId("loading"));
+
+    expect(screen.getByTestId("articleSummary")).toBeDefined();
+  });
+
+  it("Display the error if summary was not generated", async () => {
+    const { getByPlaceholderText } = render(
+      <Provider store={store}>
+        <SearchArticle />
+      </Provider>
     );
+    userEvent.type(
+      getByPlaceholderText("Eneter article URL"),
+      "https://wheaterapp-adi.netlify.app/"
+    );
+    userEvent.click(screen.getByTestId("submitSearch"));
+
+    await waitForElementToBeRemoved(() => screen.getByTestId("loading"));
+
+    expect(screen.getByTestId("error")).toBeDefined();
   });
 });

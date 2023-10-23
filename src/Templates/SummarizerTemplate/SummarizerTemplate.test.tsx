@@ -26,6 +26,6 @@ describe("SummarizerTemplate has been rendered", () => {
     );
     const mainHeader = screen.getByTestId("mainHeader");
     const summarizerBody = screen.getByTestId("summarizerBody");
-    expect(mainHeader && summarizerBody).toBeTruthy;
+    expect(mainHeader && summarizerBody).toBeTruthy();
   });
 });

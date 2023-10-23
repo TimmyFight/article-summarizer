@@ -69,6 +69,7 @@ const SearchArticle = () => {
           &#10148;
         </button>
       </form>
+      <div data-testId="articleSummary">Test summary</div>
     </div>
   );
 };

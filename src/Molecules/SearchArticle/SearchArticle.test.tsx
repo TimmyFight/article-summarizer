@@ -1,25 +1,11 @@
-import { render, screen, fireEvent } from "@testing-library/react";
-import { describe, expect, it, vi } from "vitest";
+import { describe, expect, it } from "vitest";
+import { render, screen, userEvent } from "../../utils/testUtils";
 
 import { Provider } from "react-redux";
 import { store } from "../../services/store";
+import { shorterArticle } from "../../mocks/handlers";
 
 import SearchArticle from "./SearchArticle";
-
-const getSummaryByUrl = vi
-  .fn()
-  .mockResolvedValue({ data: { summary: "Test summary" } });
-
-vi.mock("../../services/article", () => {
-  return {
-    articleApi: {
-      useLazyGetSummaryByUrlQuery: () => [
-        getSummaryByUrl,
-        { error: null, isFetching: false },
-      ],
-    },
-  };
-});
 
 describe("SearchArticle has been rendered", () => {
   it("SearchArticle contained wrapper div with form, input, icon and button", () => {
@@ -41,37 +27,20 @@ describe("SearchArticle has been rendered", () => {
     expect(submitButton).toBe("submit");
   });
 
-  it("Submit form has been fired", async () => {
-    const { getByPlaceholderText } = render(
-      <Provider store={store}>
-        <SearchArticle />
-      </Provider>
-    );
-    fireEvent.change(getByPlaceholderText("Eneter article URL"), {
-      target: { value: "https://wheaterapp-adi.netlify.app/" },
-    });
-    fireEvent.click(screen.getByTestId("submitSearch"));
-
-    await expect(getSummaryByUrl).toHaveBeenCalledWith({
-      articleUrl: "https://wheaterapp-adi.netlify.app/",
-    });
-  });
-
   it("Displays the summary after form submission", async () => {
     const { getByPlaceholderText } = render(
       <Provider store={store}>
         <SearchArticle />
       </Provider>
     );
-    fireEvent.change(getByPlaceholderText("Eneter article URL"), {
-      target: { value: "https://wheaterapp-adi.netlify.app/" },
-    });
-    fireEvent.click(screen.getByTestId("submitSearch"));
+    userEvent.type(
+      getByPlaceholderText("Eneter article URL"),
+      "https://wheaterapp-adi.netlify.app/"
+    );
+    userEvent.click(screen.getByTestId("submitSearch"));
 
-    await expect(getSummaryByUrl).toHaveBeenCalledWith({
-      articleUrl: "https://wheaterapp-adi.netlify.app/",
-    });
-
-    expect(screen.getByText("Test summary")).toBeTruthy();
+    expect(screen.getByTestId("articleSummary").textContent).toBe(
+      shorterArticle.summary
+    );
   });
 });

@@ -1,5 +1,5 @@
 import SummarizerTemplate from "../../Templates/SummarizerTemplate/SummarizerTemplate";
 
-const Summarizer = () => <SummarizerTemplate article="Example article" />;
+const Summarizer = () => <SummarizerTemplate />;
 
 export default Summarizer;

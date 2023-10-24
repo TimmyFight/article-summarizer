@@ -3,7 +3,7 @@ interface ArticleSummaryProperties {
 }
 
 const ArticleSummary = ({ summary }: ArticleSummaryProperties) => {
-  return <div data-testId="articleSummary">{summary}</div>;
+  return <div data-testid="articleSummary">{summary}</div>;
 };
 
 export default ArticleSummary;

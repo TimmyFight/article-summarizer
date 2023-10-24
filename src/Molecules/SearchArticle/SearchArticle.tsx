@@ -3,6 +3,7 @@ import { useLazyGetSummaryByUrlQuery } from "../../services/article";
 
 import { linkIcon } from "../../assets";
 import ArticleSummary from "../../Atoms/ArticleSummary/ArticleSummary";
+import ArticleHistoryRecord from "../../Atoms/ArticleHistoryRecord/ArticleHistoryRecord";
 import Loading from "../../Atoms/Loading/Loading";
 import Error from "../../Atoms/Error/Error";
 
@@ -72,6 +73,16 @@ const SearchArticle = () => {
           &#10148;
         </button>
       </form>
+      <ul>
+        {lastArticles?.map((articleUrl, id) => {
+          return (
+            <ArticleHistoryRecord
+              key={`${id}_${articleUrl}`}
+              articleUrl={articleUrl}
+            />
+          );
+        })}
+      </ul>
       {isFetching && <Loading />}
       {error && <Error />}
       {!isFetching && !error && <ArticleSummary summary={article.summary} />}

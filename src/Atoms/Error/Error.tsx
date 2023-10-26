@@ -1,6 +1,6 @@
 const Error = () => {
   return (
-    <div data-testId="error">
+    <div data-testid="error">
       The page cannot be summarized. The page should contain text blocks.
     </div>
   );

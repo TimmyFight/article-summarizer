@@ -1,5 +1,5 @@
 const Loading = () => {
-  return <div data-testId="loading">Loading</div>;
+  return <div data-testid="loading">Loading</div>;
 };
 
 export default Loading;

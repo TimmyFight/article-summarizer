@@ -7,13 +7,18 @@ import ArticleHistoryRecord from "../../Atoms/ArticleHistoryRecord/ArticleHistor
 import Loading from "../../Atoms/Loading/Loading";
 import Error from "../../Atoms/Error/Error";
 
+interface Article {
+  url: string;
+  summary: string;
+}
+
 const SearchArticle = () => {
   const [article, setArticle] = useState({
     url: "",
     summary: "",
   });
 
-  const [lastArticles, setLastArticles] = useState<[] | string[]>([]);
+  const [lastArticles, setLastArticles] = useState<[] | Article[]>([]);
 
   useEffect(() => {
     const lastArticlesStoraged = localStorage.getItem("lastArticles");
@@ -31,7 +36,7 @@ const SearchArticle = () => {
 
     if (data?.summary) {
       const newArticle = { ...article, summary: data.summary };
-      const updatedLastArticles = [newArticle.url, ...lastArticles];
+      const updatedLastArticles = [newArticle, ...lastArticles];
 
       if (updatedLastArticles.length > 5) {
         updatedLastArticles.pop();
@@ -74,18 +79,25 @@ const SearchArticle = () => {
         </button>
       </form>
       <div className="flex flex-col gap-1 overflow-y-auto max-h-14">
-        {lastArticles?.map((articleUrl, id) => {
+        {lastArticles?.map((article, id) => {
           return (
             <ArticleHistoryRecord
-              key={`${id}_${articleUrl}`}
-              articleUrl={articleUrl}
+              key={`${id}_${article.url}`}
+              articleUrl={article.url}
+              onClickHandler={() => setArticle(article)}
             />
           );
         })}
       </div>
-      {isFetching && <Loading />}
-      {error && <Error />}
-      {!isFetching && !error && <ArticleSummary summary={article.summary} />}
+      <div
+        className="my-10 max-w-full flex justify-center items-center"
+        data-testid="articleSummary">
+        {isFetching && <Loading />}
+        {error && <Error />}
+        {!isFetching && !error && article.summary && (
+          <ArticleSummary summary={article.summary} />
+        )}
+      </div>
     </div>
   );
 };

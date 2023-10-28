@@ -11,7 +11,9 @@ const ArticleSummary = ({ summary }: ArticleSummaryProperties) => {
         Article <span className="blue_gradient">Summary</span>
       </h2>
       <div className="summary_box">
-        <p>{summary}</p>
+        <p className="font-inter font-medium text-sm text-gray-700">
+          {summary}
+        </p>
       </div>
     </div>
   );

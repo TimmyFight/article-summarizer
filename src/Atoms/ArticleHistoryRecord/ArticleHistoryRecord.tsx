@@ -1,4 +1,5 @@
-import { copy } from "../../assets";
+import CopyButton from "../CopyButton/CopyButton";
+
 interface ArticleHistoryRecordProperties {
   articleUrl: string;
   onClickHandler: () => void;
@@ -10,13 +11,7 @@ const ArticleHistoryRecord = ({
 }: ArticleHistoryRecordProperties) => {
   return (
     <div className="cursor-pointer link_card" onClick={onClickHandler}>
-      <div className="copy_btn">
-        <img
-          src={copy}
-          alt="copy_icon"
-          className="w-[40%] h-[40%] object-contain"
-        />
-      </div>
+      <CopyButton articleUrl={articleUrl} />
       <p className="flex-1 font-satoshi text-blue-700 font-medium text-sm truncate">
         {articleUrl}
       </p>

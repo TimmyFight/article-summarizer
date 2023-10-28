@@ -73,7 +73,7 @@ const SearchArticle = () => {
           &#10148;
         </button>
       </form>
-      <ul>
+      <div className="flex flex-col gap-1 overflow-y-auto max-h-14">
         {lastArticles?.map((articleUrl, id) => {
           return (
             <ArticleHistoryRecord
@@ -82,7 +82,7 @@ const SearchArticle = () => {
             />
           );
         })}
-      </ul>
+      </div>
       {isFetching && <Loading />}
       {error && <Error />}
       {!isFetching && !error && <ArticleSummary summary={article.summary} />}

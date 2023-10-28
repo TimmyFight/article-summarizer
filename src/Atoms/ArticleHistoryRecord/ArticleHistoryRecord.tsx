@@ -5,7 +5,7 @@ interface ArticleHistoryRecordProperties {
 const ArticleHistoryRecord = ({
   articleUrl,
 }: ArticleHistoryRecordProperties) => {
-  return <li>{articleUrl}</li>;
+  return <div>{articleUrl}</div>;
 };
 
 export default ArticleHistoryRecord;

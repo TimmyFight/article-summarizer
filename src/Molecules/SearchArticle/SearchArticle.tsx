@@ -32,7 +32,7 @@ const SearchArticle = () => {
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const { data } = await getSummaryByUrl({ articleUrl: article.url });
+    const { data, error } = await getSummaryByUrl({ articleUrl: article.url });
 
     if (data?.summary) {
       const newArticle = { ...article, summary: data.summary };
@@ -45,6 +45,10 @@ const SearchArticle = () => {
       setArticle(newArticle);
       setLastArticles(updatedLastArticles);
       localStorage.setItem("lastArticles", JSON.stringify(updatedLastArticles));
+    }
+
+    if (error) {
+      setArticle({ url: "", summary: "" });
     }
   };
 
@@ -78,13 +82,16 @@ const SearchArticle = () => {
           &#10148;
         </button>
       </form>
-      <div className="flex flex-col gap-1 overflow-y-auto max-h-14">
+      <div className="flex flex-col gap-1 overflow-y-auto max-h-24">
         {lastArticles?.map((article, id) => {
           return (
             <ArticleHistoryRecord
               key={`${id}_${article.url}`}
               articleUrl={article.url}
-              onClickHandler={() => setArticle(article)}
+              onClickHandler={() => {
+                console.log(article);
+                setArticle(article);
+              }}
             />
           );
         })}
@@ -93,8 +100,8 @@ const SearchArticle = () => {
         className="my-10 max-w-full flex justify-center items-center"
         data-testid="articleSummary">
         {isFetching && <Loading />}
-        {error && <Error />}
-        {!isFetching && !error && article.summary && (
+        {error && !article?.summary && <Error />}
+        {!isFetching && article.summary && (
           <ArticleSummary summary={article.summary} />
         )}
       </div>

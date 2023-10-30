@@ -89,7 +89,6 @@ const SearchArticle = () => {
               key={`${id}_${article.url}`}
               articleUrl={article.url}
               onClickHandler={() => {
-                console.log(article);
                 setArticle(article);
               }}
             />

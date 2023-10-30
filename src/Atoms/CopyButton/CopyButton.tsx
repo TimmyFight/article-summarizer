@@ -14,7 +14,10 @@ const CopyButton = ({ articleUrl }: CopyButtonProperies) => {
     setTimeout(() => setCopied(false), 2000);
   };
   return (
-    <div className="copy_btn" onClick={(event) => onClickHandler(event)}>
+    <div
+      className="copy_btn"
+      data-testid="copyButton"
+      onClick={(event) => onClickHandler(event)}>
       <img
         src={copied ? tick : copy}
         alt="copy_icon"

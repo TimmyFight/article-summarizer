@@ -2,7 +2,9 @@ import { logo } from "../../assets";
 
 const MainHeader = () => {
   return (
-    <nav className="flex justify-between items-center w-full mb-10 pt-3">
+    <nav
+      data-testid="navigation"
+      className="flex justify-between items-center w-full mb-10 pt-3">
       <img
         src={logo}
         alt="Article Summarizer Logo"
